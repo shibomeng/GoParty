@@ -1,0 +1,57 @@
+<% include ./partials/header %>
+
+<header class="container">
+    <div class="jumbotron">
+        <h1 style="color: white;">New Order</h1>
+        <form action="/new" method="POST">
+			<div class="form-group">
+				<input placeholder="  Client ID" type="text" name="ClientID" required>
+			</div>
+			<div class="form-group">
+				<select name='Event' class="form-control custom-select" required>
+					<option value="" disabled selected>Event</option>
+					<option value="wedding">Wedding</option>
+					<option value="birthday">Birthday Celebration</option>
+					<option value="party">Party</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<select name='Venue' class="form-control custom-select" required>
+					<option value="" disabled selected>Venue</option>
+					<option value="waterloo">Waterloo</option>
+					<option value="toronto">Toronto</option>
+					<option value="china">China</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<select name='Menu' class="form-control custom-select">
+					<option value="" disabled selected>Menu</option>
+					<option value="hamburger">Hamburger</option>
+					<option value="wine">Wine</option>
+					<option value="rice">Rice</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<select name='FW' class="form-control custom-select">
+					<option value="" disabled selected>Flower/Decor</option>
+					<option value="rose">Rose</option>
+					<option value="tulip">Tulip</option>
+					<option value="morning glory">Morning Glory</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<select name='ME' class="form-control custom-select">
+					<option value="" disabled selected>Music/Entertainment</option>
+					<option value="guitar">Guitar</option>
+					<option value="violin">Violin</option>
+					<option value="piano">Piano</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<button class="btn btn-primary btn-lg">Submit</button>
+			</div>
+		</form>
+    </div>
+</header>
+
+<% include ./partials/footer %>
