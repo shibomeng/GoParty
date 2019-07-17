@@ -12,7 +12,6 @@ router.post("/new_client", function(req, res) {
     var phone = req.body.Phone;
     var address = req.body.Address;
 
-    console.log("Connected!");
     var sql = "INSERT INTO CLIENT (Client_ID, Budget,Phone_Num, Address) VALUES (?, ?, ?, ?)";
     connection.query(sql, [clientId, budget, phone, address], function (err, result) {
         if (err) throw err;
@@ -20,6 +19,7 @@ router.post("/new_client", function(req, res) {
         req.flash("success", "Successfully Added New Client!");
         res.redirect("/");
     });
+    
 });
 
 module.exports = router;
