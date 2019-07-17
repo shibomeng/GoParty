@@ -12,7 +12,7 @@ initSQL();
 
 //Requiring routes
 var updateRoutes = require("./routes/update"),
-    newRoutes = require("./routes/new"),
+    new_client = require("./routes/new_client"),
     authRoutes = require("./routes/index");
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -23,7 +23,7 @@ app.use(flash());
 app.locals.moment = require('moment');
 
 app.use(updateRoutes);
-app.use(newRoutes);
+app.use(new_client);
 app.use(authRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function() {

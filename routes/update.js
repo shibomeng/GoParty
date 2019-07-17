@@ -6,6 +6,7 @@ router.get("/update", function(req, res) {
 });
 
 router.post("/update", function(req, res) {
+      
    	res.redirct("/")
 });
 
