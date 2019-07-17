@@ -22,6 +22,18 @@ app.use(methodOverride("_method"));
 app.use(flash());
 app.locals.moment = require('moment');
 
+app.use(require("express-session")({
+    secret: "dumb",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(function(req, res, next){
+    res.locals.user = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
+    next();
+});
+
 app.use(update_client);
 app.use(new_client);
 app.use(index);

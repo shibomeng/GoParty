@@ -224,6 +224,7 @@ function init() {
     connection.query(SUPPLY_ENTERTAINMENT, function(err, results, fields) {
         if (err) throw err;
     });
+            
 }
 
 module.exports = init;
