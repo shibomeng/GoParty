@@ -1,0 +1,49 @@
+<% include ./partials/header %>
+
+<header class="container">
+    <div class="jumbotron">
+        <h1 style="color: white;">Query Client</h1>
+        <form action="/search" method="POST">
+            <div class="form-group">
+                <input placeholder="  Client ID" type="text" name="ClientID" required>
+            </div>
+           <div class="form-group">
+               <select name = comparsion>
+                    <option disabled selected>Choose The Range OF</option>
+                    <option values = "large">Large Than</option>
+                    <option values = "less">Less Than</option>
+                </select>
+				<input placeholder="  Budget" type="text" name="Budget" required>
+			</div>
+            <div class="form-group">
+                <input placeholder="  Phone Num" type="text" name="Phone">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-lg">Search</button>
+            </div>
+        </form>
+    </div>
+</header>
+
+<div class="container" id="data">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Client</th>
+                <th scope="col">Event</th>
+                <th scope="col">Venue</th>
+                <th scope="col">Menu</th>
+                <th scope="col">Flower/Decor</th>
+                <th scope="col">Music/Entertainment</th>
+                <th scope="col">Supplier</th>
+                <th scope="col">Price</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+
+<% include ./partials/footer %>
