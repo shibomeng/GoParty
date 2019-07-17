@@ -13,6 +13,8 @@ initSQL();
 //Requiring routes
 var update_client = require("./routes/update_client"),
     new_client = require("./routes/new_client"),
+    new_order = require("./routes/new_order"),
+    update_order = require("./routes/update_order"),
     index = require("./routes/index");
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -36,6 +38,8 @@ app.use(function(req, res, next){
 
 app.use(update_client);
 app.use(new_client);
+app.use(new_order);
+app.use(update_order);
 app.use(index);
 
 app.listen(process.env.PORT, process.env.IP, function() {
