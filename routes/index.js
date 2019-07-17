@@ -3,7 +3,7 @@ var router = express.Router();
 
 //landingpage
 router.get("/", function(req, res) {
-    res.render("index");
+    res.render("home");
 });
 
 router.post("/search", function(req, res) {

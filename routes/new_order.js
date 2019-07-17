@@ -23,7 +23,7 @@ router.post("/new_order", function(req, res) {
    connection.query(sql, [clientId, budget, phone, address], function (err, result) {
       if (err) throw err;
       console.log("Inserted a new client!");
-      req.flash("success", "Successfully Added New Client!");
+      req.flash("success", "Successfully Added New Order!");
       res.redirect("/");
    });
 

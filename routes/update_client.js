@@ -36,6 +36,8 @@ router.post("/update_client", function(req, res) {
       });
    }
 
+   req.flash("success", "Successfully update client!");
+   res.redirect("/");
 
 });
 
