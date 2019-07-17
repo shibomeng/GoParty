@@ -12,12 +12,12 @@ router.post("/new_client", function(req, res) {
     var phone = req.body.Phone;
     var address = req.body.Address;
 
-    console.log("Connected!");
     var sql = "INSERT INTO CLIENT (Client_ID, Budget,Phone_Num, Address) VALUES (?, ?, ?, ?)";
     connection.query(sql, [clientId, budget, phone, address], function (err, result) {
         if (err) throw err;
         console.log("Inserted a new client!");
     });
+    
 });
 
 module.exports = router;
