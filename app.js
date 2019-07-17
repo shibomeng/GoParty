@@ -11,9 +11,9 @@ var initSQL = require('./Database/initDB.js');
 initSQL();  
 
 //Requiring routes
-var updateRoutes = require("./routes/update"),
+var update_client = require("./routes/update_client"),
     new_client = require("./routes/new_client"),
-    authRoutes = require("./routes/index");
+    index = require("./routes/index");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -22,9 +22,9 @@ app.use(methodOverride("_method"));
 app.use(flash());
 app.locals.moment = require('moment');
 
-app.use(updateRoutes);
+app.use(update_client);
 app.use(new_client);
-app.use(authRoutes);
+app.use(index);
 
 app.listen(process.env.PORT, process.env.IP, function() {
     console.log("SEREVER STARTED!!");

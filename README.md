@@ -1,1 +1,1 @@
-Run docker-compose up --build to strat up
+Run "docker-compose up --build" to strat.
