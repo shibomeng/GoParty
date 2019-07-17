@@ -1,7 +1,6 @@
 var connection = require('./DB_Connection.js');
 
 function init() {    
-    
     var client = `create Table if not exists CLIENT(
         Client_ID char(5) primary key,
         Budget decimal(9,2) not null check(Budget > 0),
