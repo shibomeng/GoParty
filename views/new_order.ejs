@@ -3,10 +3,13 @@
 <header class="container">
 	<div class="jumbotron">
 		<h1 style="color: white;">New Order</h1>
-	  	<form action="/search" method="POST">
-			<div class="form-group">
-				<input placeholder="  Client ID" type="text" name="ClientID" required>
+          <form action="/search" method="POST">
+            <div class="form-group">
+				<input placeholder="  Order ID" type="text" name="OrderID" required>
 			</div>
+			<div class="form-group">
+				<input placeholder="  Client ID" type="text" name="ClientID">
+            </div>
 			<div class="form-group">
 				<select name='Event' class="form-control custom-select">
 					<option value="" disabled selected>Event</option>
@@ -14,7 +17,7 @@
 					<option value="birthday">Birthday Celebration</option>
 					<option value="party">Party</option>
 				</select>
-			</div>
+            </div>
 			<div class="form-group">
 				<select name='Venue' class="form-control custom-select">
 					<option value="" disabled selected>Venue</option>
@@ -24,21 +27,27 @@
 				</select>
 			</div>
 			<div class="form-group">
-				<select name='Menu' class="form-control custom-select">
+				<select name='Menu' class="form-control custom-select" id="Menu">
 					<option value="" disabled selected>Menu</option>
 					<option value="hamburger">Hamburger</option>
 					<option value="wine">Wine</option>
 					<option value="rice">Rice</option>
 				</select>
-			</div>
+            </div>
+            <div class="form-group" id="MenuQuantity">
+				<input placeholder="  Menu Quantity" type="text" name="MenuQuantity">
+            </div>
 			<div class="form-group">
-				<select name='FW' class="form-control custom-select">
+				<select name='FW' class="form-control custom-select" id="flower">
 					<option value="" disabled selected>Flower/Decor</option>
 					<option value="rose">Rose</option>
 					<option value="tulip">Tulip</option>
 					<option value="morning glory">Morning Glory</option>
 				</select>
-			</div>
+            </div>
+            <div class="form-group" id="FWQuantity">
+				<input placeholder="  Flower Quantity" type="text" name="FWQuantity">
+            </div>
 			<div class="form-group">
 				<select name='ME' class="form-control custom-select">
 					<option value="" disabled selected>Music/Entertainment</option>
