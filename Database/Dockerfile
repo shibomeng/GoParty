@@ -4,5 +4,3 @@ ENV MYSQL_ROOT_PASSWORD=Meng199776
 ENV MYSQL_DATABASE=testMYSQL  
 ENV MYSQL_USER=shibomeng  
 ENV MYSQL_PASSWORD=Meng199776
-
-# ADD setup.sql /docker-entrypoint-initdb.d

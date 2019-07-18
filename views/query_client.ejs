@@ -3,17 +3,17 @@
 <header class="container">
     <div class="jumbotron">
         <h1 style="color: white;">Query Client</h1>
-        <form action="/search" method="POST">
+        <form action="/query_client" method="POST">
             <div class="form-group">
-                <input placeholder="  Client ID" type="text" name="ClientID" required>
+                <input placeholder="  Client ID" type="text" name="ClientID">
             </div>
            <div class="form-group">
-               <select name = comparsion>
+               <select name="comparsion">
                     <option disabled selected>Choose The Range OF</option>
-                    <option values = "large">Large Than</option>
-                    <option values = "less">Less Than</option>
+                    <option value="large">Large Than</option>
+                    <option value="less">Less Than</option>
                 </select>
-				<input placeholder="  Budget" type="text" name="Budget" required>
+				<input placeholder="  Budget" type="text" name="Budget">
 			</div>
             <div class="form-group">
                 <input placeholder="  Phone Num" type="text" name="Phone">
@@ -29,19 +29,24 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Client</th>
-                <th scope="col">Event</th>
-                <th scope="col">Venue</th>
-                <th scope="col">Menu</th>
-                <th scope="col">Flower/Decor</th>
-                <th scope="col">Music/Entertainment</th>
-                <th scope="col">Supplier</th>
-                <th scope="col">Price</th>
-                <th scope="col">Date</th>
+                <th scope="col">Client ID</th>
+                <th scope="col">Budget</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Address</th>
             </tr>
         </thead>
         <tbody>
-
+                <%if (locals.rows) {%>
+                    <%rows.forEach(function(client) {%>
+                        <tr>
+                            <%for (var key in client) {%>
+                                <td>
+                                    <%=client[key]%>
+                                </td>
+                            <%}%>
+                        </tr>
+                    <%});%>
+                <%}%>
         </tbody>
     </table>
 </div>

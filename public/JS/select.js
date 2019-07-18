@@ -2,28 +2,35 @@ var MenuQuantity = document.querySelector("#MenuQuantity");
 var FWQuantity = document.querySelector("#FWQuantity");
 var Menu = document.querySelector("#Menu");
 var flower = document.querySelector("#flower");
+var menu_div = document.querySelector("#menu_div");
+var flower_div = document.querySelector("#flower_div");
 
 main();
 
 function main() {
     // MenuQuantity.style.display = "none";
     // FWQuantity.style.display = "none";
-
-    Menu.addEventListener("click", function() {
-        if (MenuQuantity.style.display === "none") {
-            MenuQuantity.style.display = "block";
-        } else {
-            MenuQuantity.style.display = "none";
+    console.log("????");
+    menu_div.addEventListener("click", function() {
+        console.log("you");
+        for (i = 0; i < Menu.length; i++) {
+            if (Menu[i].selected) {
+                MenuQuantity.style.display = "block";
+                console.log("fuck");
+            } else if (i == Menu.length - 1) {
+                MenuQuantity.style.display = "none";
+            }
         }
-        MenuQuantity.style.borderColor = "red"; 
     });
 
-    flower.addEventListener("click", function() {
-        if (FWQuantity.style.display === "none") {
-            FWQuantity.style.display = "block";
-        } else {
-            FWQuantity.style.display = "none";
+    flower_div.addEventListener("click", function() {
+        for (i = 0; i < flower.length; i++) {
+            if (flower[i].selected) {
+                FWQuantity.style.display = "block";
+                console.log("fuck");
+            } else if (i == flower.length - 1) {
+                FWQuantity.style.display = "none";
+            }
         }
-        FWQuantity.style.borderColor = "red";
     });
 }
