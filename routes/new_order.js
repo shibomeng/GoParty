@@ -3,14 +3,7 @@ var router = express.Router();
 var connection = require('../Database/DB_Connection.js');
 
 router.get("/new_order", function(req, res) {
-   var sql = "SELECT Client_ID FROM CLIENT"
-   connection.query(sql, function (err, results, fields) {
-      if (err) throw err;
-      console.log(results);
-      res.render("new_order", { clientID: results });
-   });
-
-  
+   res.render("new_order");
 });
 
 router.post("/new_order", function(req, res) {
