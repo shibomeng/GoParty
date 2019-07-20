@@ -2,14 +2,14 @@
 
 <header class="container">
 	<div class="jumbotron">
-		<h1 style="color: white;">New Order</h1>
+		<h1 style="color: white;">Search Order</h1>
           <form action="/query_order" method="POST">
             <div class="form-group">
-				<input placeholder="  Order ID" type="text" name="OrderID" required>
+				<input placeholder="  Order ID" type="text" name="OrderID" id="OrderID">
 			</div>
-			<div class="form-group">
+			<div class="form-group" id="ClientID">
 				<select name='ClientID' class="form-control custom-select">
-					<option value="" disabled selected>Event</option>
+					<option value="" disabled selected>Client ID</option>
 					<%if (locals.clientID) {%>
 						<%clientID.forEach(function(m) {%>
 							<%for (var key in m) {%>
@@ -90,5 +90,8 @@
 		</form>
 	</div>
 </header>
+
+<script type="text/javascript" src="/JS/select.js"></script>
+<script type="text/javascript" src="/JS/q_order.js"></script>
 
 <% include ./partials/footer %>
