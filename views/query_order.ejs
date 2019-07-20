@@ -51,8 +51,8 @@
 					<%}%>
 				</select>
 			</div>
-			<div class="form-group row justify-content-md-center" id="menu_div">
-				<select name='Menu' class="form-control col col-md-4" id="Menu">
+			<div class="form-group" id="menu_div">
+				<select name='Menu' class="form-control custom-select" id="Menu">
 					<option value="" disabled selected>Menu</option>
 					<%if (locals.Menu) {%>
 						<%Menu.forEach(function(m) {%>
@@ -63,8 +63,8 @@
 					<%}%>
 				</select>
             </div>
-			<div class="form-group row justify-content-md-center" id="flower_div">
-				<select name='FW' class="form-control col col-md-5" id="flower">
+			<div class="form-group" id="flower_div">
+				<select name='FW' class="form-control custom-select" id="flower">
 					<option value="" disabled selected>Flower/Decor</option>
 					<%if (locals.Flower) {%>
 						<%Flower.forEach(function(m) {%>
@@ -113,7 +113,7 @@
                         <tr>
                             <%for (var key in order) {%>
                                 <td>
-                                    <%=client[key]%>
+                                    <%=order[key]%>
                                 </td>
                             <%}%>
                         </tr>
