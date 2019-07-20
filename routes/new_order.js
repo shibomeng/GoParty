@@ -3,7 +3,17 @@ var router = express.Router();
 var connection = require('../Database/DB_Connection.js');
 
 router.get("/new_order", function(req, res) {
-   res.render("new_order");
+   connection.query("SELECT Event_Type FROM EVENT", function(err, Event){
+      if (err) throw err;
+      connection.query("SELECT Location FROM VENUE", function(err, Venue){
+         if (err) throw err;
+         connection.query("SELECT Name FROM MENU_ITEM", function(err, Menu){
+            if (err) throw err;
+            connection.query("SELECT Name FROM DECOR_ITEM", function (err, Flower){
+               if (err) throw err;
+               connection.query("SELECT Name FROM ENTERTAINMENT_ITEM", function (err, Music){
+                  if (err) throw err;
+                  res.render("new_order", {Event : Event, Venue:VEnue, Menu:Menu, Flower:Flower, Music:Music});});});});});});
 });
 
 router.post("/new_order", function(req, res) {
