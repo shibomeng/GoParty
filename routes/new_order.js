@@ -3,6 +3,11 @@ var router = express.Router();
 var connection = require('../Database/DB_Connection.js');
 
 router.get("/new_order", function(req, res) {
+   var clientID;
+   connection.query("SELECT Client_ID FROM CLIENT", function (err, result) {
+      if (err) throw err;
+      clientID = result;
+   });
    connection.query("SELECT Event_Type FROM EVENT", function(err, Event){
       if (err) throw err;
       connection.query("SELECT Location FROM VENUE", function(err, Venue){
@@ -13,7 +18,7 @@ router.get("/new_order", function(req, res) {
                if (err) throw err;
                connection.query("SELECT Name FROM ENTERTAINMENT_ITEM", function (err, Music){
                   if (err) throw err;
-                  res.render("new_order", {Event : Event, Venue:Venue, Menu:Menu, Flower:Flower, Music:Music});});});});});});
+                  res.render("new_order", {clientID: clientID, Event : Event, Venue:Venue, Menu:Menu, Flower:Flower, Music:Music});});});});});});
 
 });
 
