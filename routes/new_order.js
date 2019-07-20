@@ -62,9 +62,6 @@ router.post("/new_order", function(req, res) {
                if (err) throw err;
             });
       });
-      
-
-
 
       req.flash("success", "Successfully Added New Order!");
       res.redirect("/");
