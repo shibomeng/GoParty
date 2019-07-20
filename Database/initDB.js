@@ -40,7 +40,8 @@ function init() {
         foreign key (Client_ID) references CLIENT(Client_ID) ON UPDATE CASCADE ON DELETE CASCADE,
         foreign key (Location) references VENUE(Location),
         foreign key (Event_Type) references EVENT(Event_Type),
-        primary key(ORDER_INFO_ID, Client_ID)
+        primary key(ORDER_INFO_ID, Client_ID),
+        UNIQUE(ORDER_INFO_ID)
         )`;
     
     connection.query(order_info, function(err, results, fields) {
@@ -174,7 +175,6 @@ function init() {
         Entertainment_ID char(10) not null,
         ORDER_INFO_ID char(5) not null,
         Client_ID char(5) not null,
-        Quantity INT not null check(Quantity > 0),
         primary key(ORDER_INFO_ID, Client_ID,Entertainment_ID),
         foreign key (ORDER_INFO_ID, Client_ID) references ORDER_INFO(ORDER_INFO_ID, Client_ID) ON UPDATE CASCADE ON DELETE CASCADE,
         foreign key (Entertainment_ID) references ENTERTAINMENT_ITEM(Entertainment_ID)
