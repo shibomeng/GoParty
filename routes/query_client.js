@@ -14,14 +14,15 @@ router.post("/query_client", function (req, res) {
 
     var sql = ' SELECT * FROM CLIENT WHERE (? IS NULL OR Client_ID = ?) AND (? IS NULL OR Phone_Num = ?) ';
     
-    if (comparsion && budget) {
-        var append;
+    var append;
+    if (comparsion) {
         if (comparsion === "less") {
             append = "AND (Budget < ?)";
         } else {
             append = "AND (Budget > ?)";
         }
-        sql = sql.concat(append);
+    } else {
+        append = "AND (Budget = ?)";
     }
     
     if (!clientID) {
@@ -30,10 +31,19 @@ router.post("/query_client", function (req, res) {
     if (!phone) {
         phone = null;
     }
+    if (!budget) {
+        budget = null;
+    } else {
+        sql = sql.concat(append);
+    }
 
     connection.query(sql, [clientID, clientID, phone, phone, budget], function (err, rows, fields) {
         if (err) throw err;
-        req.flash("success", "Check Result Below");
+        if (rows) {
+            req.flash("error", "No Result Found");
+        } else {
+            req.flash("success", "Check Result Below");
+        }
         res.render("query_client", {rows : rows});
     });
 });
