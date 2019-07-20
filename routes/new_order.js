@@ -20,11 +20,13 @@ router.get("/new_order", function(req, res) {
 router.post("/new_order", function(req, res) {
     var clientID = req.body.ClientID;
     var orderID = req.body.OrderID;
+    var numOfInvitees = req.body.invitee;
     var event = req.body.Event;
     var venue = req.body.Venue;
+    var price;
 
-   var sql = "INSERT INTO ORDER_INFO (ORDER_INFO_ID,Client_ID, Budget,Phone_Num, Address) VALUES (?, ?, ?, ?)";
-   connection.query(sql, [clientId, budget, phone, address], function (err, result) {
+   var sql = "INSERT INTO ORDER_INFO (ORDER_INFO_ID, Client_ID, Num_Of_Invitees, Location,Event_Type) VALUES (?, ?, ?, ?. ?)";
+   connection.query(sql, [orderID, clientId, numOfInvitees, venue, event], function (err, result) {
       if (err) throw err;
       console.log("Inserted a new client!");
       req.flash("success", "Successfully Added New Order!");
