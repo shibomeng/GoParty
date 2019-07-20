@@ -146,6 +146,7 @@ function init() {
         Menu_ID char(10) not null,
         ORDER_INFO_ID char(5) not null,
         Client_ID char(5) not null,
+        Quantity INT not null check(Quantity > 0),
         primary key(ORDER_INFO_ID, Client_ID, Menu_ID),
         foreign key (ORDER_INFO_ID, Client_ID) references ORDER_INFO(ORDER_INFO_ID, Client_ID) ON UPDATE CASCADE ON DELETE CASCADE,
         foreign key(Menu_ID) references MENU_ITEM(Menu_ID)
@@ -159,6 +160,7 @@ function init() {
         Decor_ID char(10) not null,
         ORDER_INFO_ID char(5) not null,
         Client_ID char(5) not null,
+        Quantity INT not null check(Quantity > 0),
         primary key(ORDER_INFO_ID, Client_ID,Decor_ID),
         foreign key (ORDER_INFO_ID, Client_ID) references ORDER_INFO(ORDER_INFO_ID, Client_ID) ON UPDATE CASCADE ON DELETE CASCADE,
         foreign key (Decor_ID) references DECOR_ITEM(Decor_ID)
@@ -172,6 +174,7 @@ function init() {
         Entertainment_ID char(10) not null,
         ORDER_INFO_ID char(5) not null,
         Client_ID char(5) not null,
+        Quantity INT not null check(Quantity > 0),
         primary key(ORDER_INFO_ID, Client_ID,Entertainment_ID),
         foreign key (ORDER_INFO_ID, Client_ID) references ORDER_INFO(ORDER_INFO_ID, Client_ID) ON UPDATE CASCADE ON DELETE CASCADE,
         foreign key (Entertainment_ID) references ENTERTAINMENT_ITEM(Entertainment_ID)
