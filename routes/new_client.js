@@ -2,6 +2,10 @@ var express = require("express");
 var router = express.Router();
 var connection = require('../Database/DB_Connection.js');
 
+router.get("/", function(req, res) {
+    res.render("home");
+});
+
 router.get("/new_client", function(req, res) {
    res.render("new_client");
 });

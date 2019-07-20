@@ -39,7 +39,7 @@ router.post("/query_client", function (req, res) {
 
     connection.query(sql, [clientID, clientID, phone, phone, budget], function (err, rows, fields) {
         if (err) throw err;
-        if (rows) {
+        if (rows.length == 0) {
             req.flash("error", "No Result Found");
         } else {
             req.flash("success", "Check Result Below");

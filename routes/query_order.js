@@ -37,7 +37,7 @@ router.post("/query_order", function (req, res) {
         connection.query("SELECT * FROM ORDER_INFO WHERE ClientID = ?",
         [clientID], function(err, result) {
             if (err) throw err;
-            if (result) {
+            if (result.length == 0) {
                 req.flash("error", "No Result Found");
             } else {
                 req.flash("success", "Check Result Below");
@@ -64,7 +64,7 @@ router.post("/query_order", function (req, res) {
         connection.query(sql,[orderID, orderID, venue, venue, event,event, invitee],
             function(err, result){
             if (err) throw err;
-            if (result) {
+            if (result.length == 0) {
                 req.flash("error", "No Result Found");
             } else {
                 req.flash("success", "Check Result Below");

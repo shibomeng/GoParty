@@ -7,7 +7,7 @@ OrderID.addEventListener("focus", function() {
 });
 
 OrderID.addEventListener("focusout", function() {
-    if (this.value) {
+    if (this.value.length == 0) {
         ClientID.style.display = "block";
     }
 });

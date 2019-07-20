@@ -15,7 +15,6 @@ var update_client = require("./routes/update_client"),
     new_client = require("./routes/new_client"),
     new_order = require("./routes/new_order"),
     update_order = require("./routes/update_order"),
-    index = require("./routes/index"),
     query_client = require("./routes/query_client"),
     query_order = require("./routes/query_order");
 
@@ -44,7 +43,6 @@ app.use(update_client);
 app.use(new_client);
 app.use(new_order);
 app.use(update_order);
-app.use(index);
 
 
 app.listen(process.env.PORT, process.env.IP, function() {
