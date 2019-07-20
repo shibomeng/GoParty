@@ -2,14 +2,14 @@
 
 <header class="container">
 	<div class="jumbotron">
-		<h1 style="color: white;">New Order</h1>
+		<h1 style="color: white;">Search Order</h1>
           <form action="/query_order" method="POST">
             <div class="form-group">
 				<input placeholder="  Order ID" type="text" name="OrderID" required>
 			</div>
 			<div class="form-group">
 				<select name='ClientID' class="form-control custom-select">
-					<option value="" disabled selected>Event</option>
+					<option value="" disabled selected>Client ID</option>
 					<%if (locals.clientID) {%>
 						<%clientID.forEach(function(m) {%>
 							<%for (var key in m) {%>
@@ -19,8 +19,13 @@
 					<%}%>
 				</select>
             </div>
-            <div class="form-group">
-				<input placeholder="  Num of Invitees" type="text" name="invitee">
+            <div class="form-group row justify-content-md-center">
+				<select class="form-control col col-md-4" name="comparsion">
+					<option disabled selected>Choose The Range OF</option>
+					<option value="large">Large Than</option>
+					<option value="less">Less Than</option>
+				</select>
+				<input class="form-control col col-md-4" placeholder="  Num of Invitees" type="text" name="invitee">
             </div>
 			<div class="form-group">
 				<select name='Event' class="form-control custom-select">
@@ -57,7 +62,6 @@
 						<%});%>
 					<%}%>
 				</select>
-				<input id="MenuQuantity" class="col col-md-4" placeholder="  Menu Quantity" type="text" name="MenuQuantity">
             </div>
 			<div class="form-group row justify-content-md-center" id="flower_div">
 				<select name='FW' class="form-control col col-md-5" id="flower">
@@ -70,7 +74,6 @@
 						<%});%>
 					<%}%>
 				</select>
-				<input id="FWQuantity" class="col col-md-4" placeholder="  Flower Quantity" type="text" name="FWQuantity">
             </div>
 			<div class="form-group">
 				<select name='ME' class="form-control custom-select">
