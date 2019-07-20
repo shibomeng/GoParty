@@ -17,8 +17,10 @@
 				<select name='Event' class="form-control custom-select">
 					<option value="" disabled selected>Event</option>
 					<%if (locals.Event) {%>
-						<%Event.forEach(function(e) {%>
-							<option value="<%= e %>"><%= e %></option>
+						<%Event.forEach(function(m) {%>
+							<%for (var key in m) {%>
+								<option value="<%= m[key] %>"><%= m[key] %></option>
+							<%}%>
 						<%});%>
 					<%}%>
 				</select>
@@ -27,8 +29,10 @@
 				<select name='Venue' class="form-control custom-select">
 					<option value="" disabled selected>Venue</option>
 					<%if (locals.Venue) {%>
-						<%Venue.forEach(function(v) {%>
-							<option value="<%= v %>"><%= v %></option>
+						<%Venue.forEach(function(m) {%>
+							<%for (var key in m) {%>
+								<option value="<%= m[key] %>"><%= m[key] %></option>
+							<%}%>
 						<%});%>
 					<%}%>
 				</select>
@@ -38,7 +42,9 @@
 					<option value="" disabled selected>Menu</option>
 					<%if (locals.Menu) {%>
 						<%Menu.forEach(function(m) {%>
-							<option value="<%= m %>"><%= m %></option>
+							<%for (var key in m) {%>
+								<option value="<%= m[key] %>"><%= m[key] %></option>
+							<%}%>
 						<%});%>
 					<%}%>
 				</select>
@@ -49,7 +55,9 @@
 					<option value="" disabled selected>Flower/Decor</option>
 					<%if (locals.Flower) {%>
 						<%Flower.forEach(function(m) {%>
-							<option value="<%= m %>"><%= m %></option>
+							<%for (var key in m) {%>
+								<option value="<%= m[key] %>"><%= m[key] %></option>
+							<%}%>
 						<%});%>
 					<%}%>
 				</select>
@@ -60,7 +68,9 @@
 					<option value="" disabled selected>Music/Entertainment</option>
 					<%if (locals.Music) {%>
 						<%Music.forEach(function(m) {%>
-							<option value="<%= m %>"><%= m %></option>
+							<%for (var key in m) {%>
+								<option value="<%= m[key] %>"><%= m[key] %></option>
+							<%}%>
 						<%});%>
 					<%}%>
 				</select>

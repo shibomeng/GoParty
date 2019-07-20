@@ -13,7 +13,7 @@ router.get("/new_order", function(req, res) {
                if (err) throw err;
                connection.query("SELECT Name FROM ENTERTAINMENT_ITEM", function (err, Music){
                   if (err) throw err;
-                  res.render("new_order", {Event : Event, Venue:VEnue, Menu:Menu, Flower:Flower, Music:Music});});});});});});
+                  res.render("new_order", {Event:Event, Venue:Venue, Menu:Menu, Flower:Flower, Music:Music});});});});});});
 });
 
 router.post("/new_order", function(req, res) {

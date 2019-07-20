@@ -5,7 +5,8 @@ var flower = document.querySelector("#flower");
 var menu_div = document.querySelector("#menu_div");
 var flower_div = document.querySelector("#flower_div");
 
-Menu.addEventListener("click", function() {
+menu_div.addEventListener("click", function() {
+    console.log(Menu.length);
     for (i = 0; i < Menu.length; i++) {
         if (Menu[i].selected) {
             MenuQuantity.style.display = "block";
@@ -15,7 +16,7 @@ Menu.addEventListener("click", function() {
     }
 });
 
-flower.addEventListener("click", function() {
+flower_div.addEventListener("click", function() {
     for (i = 0; i < flower.length; i++) {
         if (flower[i].selected) {
             FWQuantity.style.display = "block";
