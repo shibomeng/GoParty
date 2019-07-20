@@ -34,7 +34,7 @@ router.post("/query_order", function (req, res) {
     var me = req.body.ME;
 
     if (clientID) {
-        connection.query("SELECT * FROM ORDER_INFO_ID WHERE ClientID = ?",
+        connection.query("SELECT * FROM ORDER_INFO WHERE ClientID = ?",
         [clientID], function(err, result) {
             if (err) throw err;
             if (result) {
