@@ -23,85 +23,107 @@ router.get("/query_order", function(req, res) {
 
 
 router.post("/query_order", function (req, res) {
-    var clientID = req.body.ClientID;
-    var orderID = (req.body.OrderID ? req.body.OrderID: null);
-    var invitee = parseInt(req.body.invitee);
+    var clientID = (req.body.ClientID ? req.body.ClientID : null);  
+    var orderID = (req.body.OrderID ? req.body.OrderID : null);
+    var invitee = (parseInt(req.body.invitee) ? parseInt(req.body.invitee) : null);
     var comparsion = req.body.comparsion;
+    var MenuComparsion = req.body.MenuComparsion;
+    var FWcomparsion = req.body.FWcomparsion;
     var event = (req.body.Event ? req.body.Event : null);
     var venue = (req.body.Venue ? req.body.Venue : null);
-    var menu = req.body.Menu;
-    var fw = req.body.FW;
-    var me = req.body.ME;
+    var menu = (req.body.Menu ? req.body.Menu : null);
+    var menu_quantity = (req.body.MenuQuantity ? req.body.MenuQuantity : null);
+    var fw = (req.body.FW ? req.body.FW : null);
+    var flower_quantity = (req.body.FWQuantity ? req.body.FWQuantity : null);
+    var me = (req.body.ME ? req.body.ME : null);
 
-    if (clientID) {
-        connection.query("SELECT * FROM ORDER_INFO WHERE ClientID = ?",
-        [clientID], function(err, result) {
-            if (err) throw err;
-            if (result.length == 0) {
-                req.flash("error", "No Result Found");
-            } else {
-                req.flash("success", "Check Result Below");
-            }
-            var clientID;
-            connection.query("SELECT Client_ID FROM CLIENT", function (err, result) {
-                if (err) throw err;
-                clientID = result;
-            });
-            connection.query("SELECT Event_Type FROM EVENT", function(err, Event){
-                if (err) throw err;
-                connection.query("SELECT Location FROM VENUE", function(err, Venue){
-                    if (err) throw err;
-                    connection.query("SELECT Name FROM MENU_ITEM", function(err, Menu){
-                        if (err) throw err;
-                        connection.query("SELECT Name FROM DECOR_ITEM", function (err, Flower){
-                        if (err) throw err;
-                        connection.query("SELECT Name FROM ENTERTAINMENT_ITEM", function (err, Music){
-                            if (err) throw err;
-                            res.render("query_order", {clientID: clientID, Event : Event, Venue:Venue, Menu:Menu, Flower:Flower, Music:Music, result: result});});});});});});
-        });
+    var sql = ' select * \
+                from ORDER_INFO \
+                natural join CONSIST_MENU \
+                natural join CONSIST_DECOR \
+                natural join CONSIST_ENTERTAINMENT \
+                where (? is null or ORDER_INFO_ID = ?) \
+                and (? is null or Client_ID = ?) \
+                and (? is null or Event_Type = ?) \
+                and (? is null or Location = ?) \
+                and (? is null or CONSIST_ENTERTAINMENT.Entertainment_ID = ?) \
+                and (? is null or CONSIST_DECOR.Decor_ID = ?) \
+                and (? is null or CONSIST_MENU.Menu_ID = ?) ';
+
+    var input = [orderID, orderID, clientID, clientID, event, event, 
+        venue, venue, me, me, fw, fw, menu, menu];
+
+    var appendInvitee;
+    if (comparsion) {
+        if (comparsion === "less") {
+            appendInvitee = "AND (Num_Of_Invitees < ?) ";
+        } else {
+            appendInvitee = "AND (Num_Of_Invitees > ?) ";
+        }
     } else {
-        var sql = 'SELECT * FROM ORDER_INFO WHERE (? is NULL or ORDER_INFO_ID = ?) AND (? is NULL OR Location = ?) AND (? is NULL OR Event_Type = ?)';
-        var append;
-        if (comparsion) {
-            if (comparsion === "less") {
-                append = "AND (Num_Of_Invitees < ?)";
-            } else {
-                append = "AND (Num_Of_Invitees > ?)";
-            }
-        } else {
-            append = "AND (Num_Of_Invitees = ?)";
-        }
-        if (!invitee) {
-            invitee = null;
-        } else {
-            sql = sql.concat(append);
-        }
-        connection.query(sql,[orderID, orderID, venue, venue, event,event, invitee],
-            function(err, result){
-            if (err) throw err;
-            if (result.length == 0) {
-                req.flash("error", "No Result Found");
-            } else {
-                req.flash("success", "Check Result Below");
-            }
-            var clientID;
-            connection.query("SELECT Client_ID FROM CLIENT", function (err, result) {
-                if (err) throw err;
-                clientID = result;
-            });
-            connection.query("SELECT Event_Type FROM EVENT", function(err, Event){
-                if (err) throw err;
-                connection.query("SELECT Location FROM VENUE", function(err, Venue){
-                    if (err) throw err;
-                    connection.query("SELECT Name FROM MENU_ITEM", function(err, Menu){
-                        if (err) throw err;
-                        connection.query("SELECT Name FROM DECOR_ITEM", function (err, Flower){
-                        if (err) throw err;
-                        connection.query("SELECT Name FROM ENTERTAINMENT_ITEM", function (err, Music){
-                            if (err) throw err;
-                            res.render("query_order", {clientID: clientID, Event : Event, Venue:Venue, Menu:Menu, Flower:Flower, Music:Music, result: result});});});});});});
-        });
+        appendInvitee = "AND (Num_Of_Invitees = ?) ";
     }
+    if (invitee) {
+        sql = sql.concat(appendInvitee);
+        input.push(invitee);
+    }
+
+    var appendMenu;
+    if (MenuComparsion) {
+        if (MenuComparsion === "less") {
+            appendMenu = "AND (CONSIST_MENU.Menu_Quantity < ?) ";
+        } else {
+            appendMenu = "AND (CONSIST_MENU.Menu_Quantity > ?) ";
+        }
+    } else {
+        appendMenu = "AND (CONSIST_MENU.Menu_Quantity = ?) ";
+    }
+    if (menu_quantity) {
+        sql = sql.concat(appendMenu);
+        input.push(menu_quantity);
+    }
+
+    var appendFW;
+    if (FWcomparsion) {
+        if (FWcomparsion === "less") {
+            appendFW = "and (CONSIST_DECOR.Decor_Quantity < ?)";
+        } else {
+            appendFW = "and (CONSIST_DECOR.Decor_Quantity > ?)";
+        }
+    } else {
+        appendFW = "and (CONSIST_DECOR.Decor_Quantity = ?)";
+    }
+    if (flower_quantity) {
+        sql = sql.concat(appendFW);
+        input.push(flower_quantity);
+    }
+
+    connection.query(sql, input, 
+    function (err, rows, fields) {
+        if (err) throw err;
+        if (rows.length == 0) {
+            req.flash("error", "No Result Found");
+        } else {
+            req.flash("success", "Check Result Below");
+        }
+        var clientID;
+        connection.query("SELECT Client_ID FROM CLIENT", function (err, result) {
+            if (err) throw err;
+            clientID = result;
+        });
+        connection.query("SELECT Event_Type FROM EVENT", function(err, Event){
+            if (err) throw err;
+            connection.query("SELECT Location FROM VENUE", function(err, Venue){
+                if (err) throw err;
+                connection.query("SELECT Name FROM MENU_ITEM", function(err, Menu){
+                    if (err) throw err;
+                    connection.query("SELECT Name FROM DECOR_ITEM", function (err, Flower){
+                    if (err) throw err;
+                    connection.query("SELECT Name FROM ENTERTAINMENT_ITEM", function (err, Music){
+                        if (err) throw err;
+                        console.log(rows);
+                        res.render("query_order", {clientID:clientID, Event:Event, Venue:Venue, Menu:Menu, Flower:Flower, Music:Music, rows:rows});});});});});});
+    });
 });
 
 module.exports = router;

@@ -12,7 +12,10 @@ router.post("/query_client", function (req, res) {
     var budget = parseFloat(req.body.Budget);
     var phone = req.body.Phone;
 
-    var sql = ' SELECT * FROM CLIENT WHERE (? IS NULL OR Client_ID = ?) AND (? IS NULL OR Phone_Num = ?) ';
+    var sql = ' SELECT * \
+                FROM CLIENT \
+                WHERE (? IS NULL OR Client_ID = ?) \
+                AND (? IS NULL OR Phone_Num = ?) ';
     
     var append;
     if (comparsion) {
