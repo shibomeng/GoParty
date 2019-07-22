@@ -52,7 +52,7 @@ router.post("/query_client", function (req, res) {
         }
         connection.query("SELECT Client_ID FROM CLIENT", function (err, result) {
             if (err) throw err;
-            res.render("query_client", { rows: rows, clientID: result });
+            res.render("query_client", { rows: rows, clientID: result});
         });
     });
 });

@@ -6,7 +6,7 @@
         <form action="/query_client" method="POST">
             <div class="form-group" id="ClientID">
 				<select name='ClientID' class="form-control custom-select">
-					<option value="" disabled selected>Client ID</option>
+					<option value="" >Client ID</option>
 					<%if (locals.clientID) {%>
 						<%clientID.forEach(function(m) {%>
 							<%for (var key in m) {%>
