@@ -22,7 +22,11 @@ router.post("/new_client", function(req, res) {
 
     var sql = "INSERT INTO CLIENT (Client_ID, Budget,Phone_Num, Address) VALUES (?, ?, ?, ?)";
     connection.query(sql, [clientId, budget, phone, address], function (err, result) {
-        if (err) throw err;
+        if (err) {
+            req.flash("error", err.message);
+            res.redirect("/new_client");
+            return;
+        }
         console.log("Inserted a new client!");
         req.flash("success", "Successfully Added New Client!");
         res.redirect("/");

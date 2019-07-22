@@ -3,7 +3,10 @@ var router = express.Router();
 var connection = require('../Database/DB_Connection.js');
 
 router.get("/query_client", function (req, res) {
-    res.render("query_client");
+    connection.query("SELECT Client_ID FROM CLIENT", function (err, result) {
+        if (err) throw err;
+        res.render("query_client", {clientID: result});
+    });
 });
 
 router.post("/query_client", function (req, res) {
@@ -47,7 +50,10 @@ router.post("/query_client", function (req, res) {
         } else {
             req.flash("success", "Check Result Below");
         }
-        res.render("query_client", {rows : rows});
+        connection.query("SELECT Client_ID FROM CLIENT", function (err, result) {
+            if (err) throw err;
+            res.render("query_client", { rows: rows, clientID: result });
+        });
     });
 });
 

@@ -3,9 +3,10 @@ var connection = require('./DB_Connection.js');
 function init() {    
     var client = `create Table if not exists CLIENT(
         Client_ID char(5) primary key,
-        Budget decimal(9,2) not null check(Budget > 0),
+        Budget decimal(9,2), 
         Phone_Num char(11),
         Address varchar(50),
+        CHECK(Budget > 0),
         UNIQUE(Phone_Num, Address)
         )`;
 
