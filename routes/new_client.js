@@ -3,6 +3,10 @@ var router = express.Router();
 var connection = require('../Database/DB_Connection.js');
 
 router.get("/", function(req, res) {
+    res.render("landingPage");
+});
+
+router.get("/home", function(req, res) {
     res.render("home");
 });
 

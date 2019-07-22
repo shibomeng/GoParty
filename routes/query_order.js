@@ -106,6 +106,7 @@ router.post("/query_order", function (req, res) {
         } else {
             req.flash("success", "Check Result Below");
         }
+
         var clientID;
         connection.query("SELECT Client_ID FROM CLIENT", function (err, result) {
             if (err) throw err;
@@ -121,7 +122,6 @@ router.post("/query_order", function (req, res) {
                     if (err) throw err;
                     connection.query("SELECT Name FROM ENTERTAINMENT_ITEM", function (err, Music){
                         if (err) throw err;
-                        console.log(rows);
                         res.render("query_order", {clientID:clientID, Event:Event, Venue:Venue, Menu:Menu, Flower:Flower, Music:Music, rows:rows});});});});});});
     });
 });
