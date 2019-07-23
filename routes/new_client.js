@@ -29,7 +29,7 @@ router.post("/new_client", function(req, res) {
         }
         console.log("Inserted a new client!");
         req.flash("success", "Successfully Added New Client!");
-        res.redirect("/");
+        res.redirect("/home");
     });
     
 });
