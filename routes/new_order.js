@@ -92,7 +92,7 @@ router.post("/new_order", function(req, res) {
 
 
       req.flash("success", "Successfully Added New Order!");
-      req.redirect("/home");
+      res.redirect("/home");
       // connection.query("SELECT Client_ID FROM CLIENT", function (err, result) {
       //    if (err) throw err;
       //    client = result;
