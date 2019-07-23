@@ -34,7 +34,22 @@ router.post("/new_order", function(req, res) {
    connection.query(sql, [orderID, clientID, numOfInvitees, venue, event], function (err, result) {
       if (err) {
          req.flash("error", err.sqlMessage);
-         res.redirect("/new_order");
+         var clientID;
+         connection.query("SELECT Client_ID FROM CLIENT", function (err, result) {
+            if (err) throw err;
+            clientID = result;
+         });
+         connection.query("SELECT Event_Type FROM EVENT", function(err, Event){
+            if (err) throw err;
+            connection.query("SELECT Location FROM VENUE", function(err, Venue){
+               if (err) throw err;
+               connection.query("SELECT Name FROM MENU_ITEM", function(err, Menu){
+                  if (err) throw err;
+                  connection.query("SELECT Name FROM DECOR_ITEM", function (err, Flower){
+                     if (err) throw err;
+                     connection.query("SELECT Name FROM ENTERTAINMENT_ITEM", function (err, Music){
+                        if (err) throw err;
+                        res.render("new_order", {clientID:clientID, Event:Event, Venue:Venue, Menu:Menu, Flower:Flower, Music:Music});});});});});});
          return;
       }
       var id;
@@ -76,7 +91,22 @@ router.post("/new_order", function(req, res) {
       });
 
       req.flash("success", "Successfully Added New Order!");
-      res.redirect("/");
+      var clientID;
+      connection.query("SELECT Client_ID FROM CLIENT", function (err, result) {
+         if (err) throw err;
+         clientID = result;
+      });
+      connection.query("SELECT Event_Type FROM EVENT", function(err, Event){
+         if (err) throw err;
+         connection.query("SELECT Location FROM VENUE", function(err, Venue){
+            if (err) throw err;
+            connection.query("SELECT Name FROM MENU_ITEM", function(err, Menu){
+               if (err) throw err;
+               connection.query("SELECT Name FROM DECOR_ITEM", function (err, Flower){
+                  if (err) throw err;
+                  connection.query("SELECT Name FROM ENTERTAINMENT_ITEM", function (err, Music){
+                     if (err) throw err;
+                     res.render("new_order", {clientID:clientID, Event:Event, Venue:Venue, Menu:Menu, Flower:Flower, Music:Music});});});});});});
    });
 
 });
