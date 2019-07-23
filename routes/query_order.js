@@ -4,6 +4,11 @@ var connection = require('../Database/DB_Connection.js');
 
 router.get("/query_order", function(req, res) {
    var clientID;
+   var orderID;
+   connection.query("SELECT ORDER_INFO_ID FROM ORDER_INFO", function (err, result) {
+       if (err) throw err;
+       orderID = result;
+   })
    connection.query("SELECT Client_ID FROM CLIENT", function (err, result) {
       if (err) throw err;
       clientID = result;
@@ -18,7 +23,7 @@ router.get("/query_order", function(req, res) {
                if (err) throw err;
                connection.query("SELECT Name FROM ENTERTAINMENT_ITEM", function (err, Music){
                   if (err) throw err;
-                  res.render("query_order", {clientID: clientID, Event : Event, Venue:Venue, Menu:Menu, Flower:Flower, Music:Music});});});});});});
+                  res.render("query_order", {orderID : orderID, clientID: clientID, Event : Event, Venue:Venue, Menu:Menu, Flower:Flower, Music:Music});});});});});});
 });
 
 

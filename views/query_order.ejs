@@ -4,9 +4,18 @@
 	<div class="jumbotron">
 		<h1 style="color: white;">Search Order</h1>
           <form action="/query_order" method="POST">
-            <div class="form-group">
-				<input placeholder="  Order ID" type="text" name="OrderID" id="OrderID">
-			</div>
+           <div class="form-group" id="OrderID">
+				<select name='OrderID' class="form-control custom-select">
+					<option value="" >Order ID</option>
+					<%if (locals.orderID) {%>
+						<%orderID.forEach(function(m) {%>
+							<%for (var key in m) {%>
+								<option value="<%= m[key] %>"><%= m[key] %></option>
+							<%}%>
+						<%});%>
+					<%}%>
+				</select>
+            </div>
 			<div class="form-group" id="ClientID">
 				<select name='ClientID' class="form-control custom-select">
 					<option value="" disabled selected>Client ID</option>
