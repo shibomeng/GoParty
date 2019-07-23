@@ -108,7 +108,6 @@ router.post("/new_order", function(req, res) {
                      if (err) throw err;
                      res.render("new_order", {clientID:clientID, Event:Event, Venue:Venue, Menu:Menu, Flower:Flower, Music:Music});});});});});});
    });
-
 });
 
 module.exports = router;
