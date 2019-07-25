@@ -176,9 +176,10 @@ function init() {
     });
 
     var supplier = `create Table if not exists SUPPLIER(
-        Supplier_Name varchar(10) not null primary key,
+        Supplier_ID char(10) primary key,
+        Name varchar(10) not null,
         Phone_Num char(11),
-        UNIQUE(Phone_Num)
+        UNIQUE(Name, Phone_Num)
         )`;
 
     connection.query(supplier, function(err, results, fields) {
@@ -187,9 +188,9 @@ function init() {
 
     var SUPPLY_MENU = `create Table if not exists SUPPLY_MENU(
         Name char(10) primary key,
-        Supplier_Name varchar(10) not null,
-        foreign key (Name) references MENU_ITEM(Menu_Name),
-        foreign key(Supplier_Name) references SUPPLIER(Supplier_Name) ON UPDATE CASCADE ON DELETE CASCADE
+        Supplier_ID char(10) not null,
+        foreign key (Name) references MENU_ITEM(Name),
+        foreign key(Supplier_ID) references SUPPLIER(Supplier_ID) ON UPDATE CASCADE ON DELETE CASCADE
         )`;
 
     connection.query(SUPPLY_MENU, function(err, results, fields) {
@@ -198,9 +199,9 @@ function init() {
 
     var SUPPLY_DECOR = `create Table if not exists SUPPLY_DECOR(
         Name char(10) primary key,
-        Supplier_Name varchar(10) not null,
-        foreign key(Supplier_Name) references SUPPLIER(Supplier_Name) ON UPDATE CASCADE ON DELETE CASCADE,
-        foreign key(Name) references DECOR_ITEM(Decor_Name) 
+        Supplier_ID char(10) not null,
+        foreign key(Supplier_ID) references SUPPLIER(Supplier_ID) ON UPDATE CASCADE ON DELETE CASCADE,
+        foreign key(Name) references DECOR_ITEM(Name) 
         )`;
 
     connection.query(SUPPLY_DECOR, function(err, results, fields) {
@@ -209,9 +210,9 @@ function init() {
 
     var SUPPLY_ENTERTAINMENT = `create Table if not exists SUPPLY_ENTERTAINMENT(
         Name char(10) primary key,
-        Supplier_Name varchar(10) not null,
-        foreign key(Supplier_Name) references SUPPLIER(Supplier_Name) ON UPDATE CASCADE ON DELETE CASCADE,
-        foreign key(Name) references ENTERTAINMENT_ITEM(Entertainment_Name)
+        Supplier_ID char(10) not null,
+        foreign key(Supplier_ID) references SUPPLIER(Supplier_ID) ON UPDATE CASCADE ON DELETE CASCADE,
+        foreign key(Name) references ENTERTAINMENT_ITEM(Name)
         )`;
 
     connection.query(SUPPLY_ENTERTAINMENT, function(err, results, fields) {
