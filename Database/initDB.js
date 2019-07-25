@@ -50,11 +50,9 @@ function init() {
     });
     
     var menu_item = `create Table if not exists MENU_ITEM(
-        Menu_ID char(10) primary key,
-        Name varchar(20) not null,
+        Name varchar(20) not null primary key,
         Price decimal(9,2) not null check(Price > 0),
-        Quantity INT not null check(Quantity > 0),
-        UNIQUE(Name)
+        Quantity INT not null check(Quantity > 0)
         )`;
 
     connection.query(menu_item, function(err, results, fields) {
@@ -62,9 +60,9 @@ function init() {
     });
 
     var food = `create Table if not exists FOOD(
-        Menu_ID char(10) primary key,
+        Name char(10) primary key,
         Allergy varchar(50) default 'no',
-        foreign key(Menu_ID) references MENU_ITEM(Menu_ID) ON UPDATE CASCADE ON DELETE CASCADE
+        foreign key(Name) references MENU_ITEM(Name) ON UPDATE CASCADE ON DELETE CASCADE
         )`;
 
     connection.query(food, function(err, results, fields) {
@@ -72,9 +70,9 @@ function init() {
     });
 
     var drink = `create Table if not exists DRINK(
-        Menu_ID char(10) primary key,
+        Name char(10) primary key,
         Flavour varchar(10) default 'spicy',
-        foreign key(Menu_ID) references MENU_ITEM(Menu_ID) ON UPDATE CASCADE ON DELETE CASCADE
+        foreign key(Name) references MENU_ITEM(Name) ON UPDATE CASCADE ON DELETE CASCADE
         )`;
 
     connection.query(drink, function(err, results, fields) {
@@ -82,11 +80,9 @@ function init() {
     });
 
     var DECOR_ITEM = `create Table if not exists DECOR_ITEM(
-        Decor_ID char(10) primary key,
-        Name varchar(20) not null,
+        Name varchar(20) not null primary key,
         Price decimal(9, 2) not null check(Price > 0),
-        Quantity INT not null check(Quantity > 0),
-        UNIQUE(Name)
+        Quantity INT not null check(Quantity > 0)
         ) `;
 
     connection.query(DECOR_ITEM, function(err, results, fields) {
@@ -94,9 +90,8 @@ function init() {
     });
 
     var flower = `create Table if not exists FLOWER(
-        Decor_ID char(10) primary key, 
-        Type varchar(20) not null,
-        foreign key(Decor_ID) references DECOR_ITEM(Decor_ID) ON UPDATE CASCADE ON DELETE CASCADE
+        Name char(10) primary key, 
+        foreign key(Name) references DECOR_ITEM(Name) ON UPDATE CASCADE ON DELETE CASCADE
         ) `;
 
     connection.query(flower, function(err, results, fields) {
@@ -104,9 +99,8 @@ function init() {
     });
 
     var decor = `create Table if not exists DECOR(
-        Decor_ID char(10) primary key,
-        Color varchar(10) not null,
-        foreign key(Decor_ID) references DECOR_ITEM(Decor_ID) ON UPDATE CASCADE ON DELETE CASCADE
+        Name char(10) primary key,
+        foreign key(Name) references DECOR_ITEM(Name) ON UPDATE CASCADE ON DELETE CASCADE
         )`;
 
     connection.query(decor, function(err, results, fields) {
@@ -114,10 +108,8 @@ function init() {
     });
 
     var music_entertainment = `create Table if not exists ENTERTAINMENT_ITEM(
-        Entertainment_ID char(10) primary key,
-        Name varchar(20) not null,
-        Price decimal(9,2) not null check(Price > 0),
-        UNIQUE(Name)
+        Name varchar(20) not null primary key,
+        Price decimal(9,2) not null check(Price > 0)
         )`;
 
     connection.query(music_entertainment, function(err, results, fields) {
@@ -125,9 +117,8 @@ function init() {
     });
     
     var music = `create Table if not exists MUSIC(
-        Entertainment_ID char(10) primary key,
-        Type varchar(10) not null,
-        foreign key(Entertainment_ID) references ENTERTAINMENT_ITEM(Entertainment_ID) ON UPDATE CASCADE ON DELETE CASCADE
+        Name char(10) primary key,
+        foreign key(Name) references ENTERTAINMENT_ITEM(Name) ON UPDATE CASCADE ON DELETE CASCADE
         )`;
 
     connection.query(music, function(err, results, fields) {
@@ -135,9 +126,8 @@ function init() {
     });
 
     var dance = `create Table if not exists DANCE(
-        Entertainment_ID char(10) primary key,
-        Type varchar(10) not null,
-        foreign key(Entertainment_ID) references ENTERTAINMENT_ITEM(Entertainment_ID) ON UPDATE CASCADE ON DELETE CASCADE
+        Name char(10) primary key,
+        foreign key(Name) references ENTERTAINMENT_ITEM(Name) ON UPDATE CASCADE ON DELETE CASCADE
         )`;
 
     connection.query(dance, function(err, results, fields) {
@@ -145,13 +135,13 @@ function init() {
     });
 
     var CONSIST_MENU = `create Table if not exists CONSIST_MENU(
-        Menu_ID char(10) not null,
+        Menu_Name char(10) not null,
         ORDER_INFO_ID char(5) not null,
         Client_ID char(5) not null,
         Menu_Quantity INT not null check(Quantity > 0),
-        primary key(ORDER_INFO_ID, Client_ID, Menu_ID),
+        primary key(ORDER_INFO_ID, Client_ID, Menu_Name),
         foreign key (ORDER_INFO_ID, Client_ID) references ORDER_INFO(ORDER_INFO_ID, Client_ID) ON UPDATE CASCADE ON DELETE CASCADE,
-        foreign key(Menu_ID) references MENU_ITEM(Menu_ID)
+        foreign key(Menu_Name) references MENU_ITEM(Name)
         )`;
 
     connection.query(CONSIST_MENU, function(err, results, fields) {
@@ -159,13 +149,13 @@ function init() {
     });
 
     var CONSIST_DECOR = `create Table if not exists CONSIST_DECOR(
-        Decor_ID char(10) not null,
+        Decor_Name char(10) not null,
         ORDER_INFO_ID char(5) not null,
         Client_ID char(5) not null,
         Decor_Quantity INT not null check(Quantity > 0),
-        primary key(ORDER_INFO_ID, Client_ID,Decor_ID),
+        primary key (ORDER_INFO_ID, Client_ID, Decor_Name),
         foreign key (ORDER_INFO_ID, Client_ID) references ORDER_INFO(ORDER_INFO_ID, Client_ID) ON UPDATE CASCADE ON DELETE CASCADE,
-        foreign key (Decor_ID) references DECOR_ITEM(Decor_ID)
+        foreign key (Decor_Name) references DECOR_ITEM(Name)
         )`;
 
     connection.query(CONSIST_DECOR, function(err, results, fields) {
@@ -173,12 +163,12 @@ function init() {
     });
 
     var CONSIST_ENTERTAINMENT = `create Table if not exists CONSIST_ENTERTAINMENT(
-        Entertainment_ID char(10) not null,
+        Entertainment_Name char(10) not null,
         ORDER_INFO_ID char(5) not null,
         Client_ID char(5) not null,
-        primary key(ORDER_INFO_ID, Client_ID,Entertainment_ID),
+        primary key(ORDER_INFO_ID, Client_ID, Entertainment_Name),
         foreign key (ORDER_INFO_ID, Client_ID) references ORDER_INFO(ORDER_INFO_ID, Client_ID) ON UPDATE CASCADE ON DELETE CASCADE,
-        foreign key (Entertainment_ID) references ENTERTAINMENT_ITEM(Entertainment_ID)
+        foreign key (Entertainment_Name) references ENTERTAINMENT_ITEM(Name)
         )`;
 
     connection.query(CONSIST_ENTERTAINMENT, function(err, results, fields) {
@@ -197,9 +187,9 @@ function init() {
     });
 
     var SUPPLY_MENU = `create Table if not exists SUPPLY_MENU(
-        Menu_ID char(10) primary key,
+        Name char(10) primary key,
         Supplier_ID char(10) not null,
-        foreign key (Menu_ID) references MENU_ITEM(Menu_ID),
+        foreign key (Name) references MENU_ITEM(Name),
         foreign key(Supplier_ID) references SUPPLIER(Supplier_ID) ON UPDATE CASCADE ON DELETE CASCADE
         )`;
 
@@ -208,10 +198,10 @@ function init() {
     });
 
     var SUPPLY_DECOR = `create Table if not exists SUPPLY_DECOR(
-        Decor_ID char(10) primary key,
+        Name char(10) primary key,
         Supplier_ID char(10) not null,
         foreign key(Supplier_ID) references SUPPLIER(Supplier_ID) ON UPDATE CASCADE ON DELETE CASCADE,
-        foreign key(Decor_ID) references DECOR_ITEM(Decor_ID) 
+        foreign key(Name) references DECOR_ITEM(Name) 
         )`;
 
     connection.query(SUPPLY_DECOR, function(err, results, fields) {
@@ -219,10 +209,10 @@ function init() {
     });
 
     var SUPPLY_ENTERTAINMENT = `create Table if not exists SUPPLY_ENTERTAINMENT(
-        Entertainment_ID char(10) primary key,
+        Name char(10) primary key,
         Supplier_ID char(10) not null,
         foreign key(Supplier_ID) references SUPPLIER(Supplier_ID) ON UPDATE CASCADE ON DELETE CASCADE,
-        foreign key(Entertainment_ID) references ENTERTAINMENT_ITEM(Entertainment_ID)
+        foreign key(Name) references ENTERTAINMENT_ITEM(Name)
         )`;
 
     connection.query(SUPPLY_ENTERTAINMENT, function(err, results, fields) {

@@ -51,12 +51,12 @@ router.post("/query_order", function (req, res) {
                 and (? is null or Client_ID = ?) \
                 and (? is null or Event_Type = ?) \
                 and (? is null or Location = ?) \
-                and (? is null or CONSIST_ENTERTAINMENT.Entertainment_ID = ?) \
-                and (? is null or CONSIST_DECOR.Decor_ID = ?) \
-                and (? is null or CONSIST_MENU.Menu_ID = ?) ';
+                and (? is null or CONSIST_MENU.Menu_Name = ?) \
+                and (? is null or CONSIST_DECOR.Decor_Name = ?) \
+                and (? is null or CONSIST_ENTERTAINMENT.Entertainment_Name = ?) ';
 
     var input = [orderID, orderID, clientID, clientID, event, event, 
-        venue, venue, me, me, fw, fw, menu, menu];
+                    venue, venue, menu, menu, fw, fw, me, me];
 
     var appendInvitee;
     if (comparsion) {

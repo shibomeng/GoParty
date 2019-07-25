@@ -6,23 +6,23 @@ services:
       dockerfile: ./Server-Docker/Dockerfile
     ports:
       - '80:3000'
-    depends_on:
-      - mysqldb
+    # depends_on:
+    #   - mysqldb
     networks: 
       backend:
         ipv4_address: 172.20.128.2  
     # volumes:
     #     - $PWD:/usr/src/app
-    command: ["./wait-for-it.sh"]
+    # command: ["./wait-for-it.sh"]
 
-  mysqldb:
-    container_name: mysqldb
-    build: ./Database/
-    ports:
-      - '3306:3306'
-    networks: 
-      backend:
-        ipv4_address: 172.20.128.3  
+  # mysqldb:
+  #   container_name: mysqldb
+  #   build: ./Database/
+  #   ports:
+  #     - '3306:3306'
+  #   networks: 
+  #     backend:
+  #       ipv4_address: 172.20.128.3  
 
 networks:
   backend:

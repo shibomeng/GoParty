@@ -3,64 +3,77 @@
 <header class="container">
 	<div class="jumbotron">
 		<h1 style="color: white;">Update Order</h1>
-	  	<form action="/search" method="POST">
+          <form action="/update_order" method="POST">
             <div class="form-group">
 				<input placeholder="  Order ID" type="text" name="OrderID" required>
 			</div>
-			<div class="form-group">
-				<input placeholder="  Client ID" type="text" name="ClientID">
-			</div>
-			<div class="form-group">
+            <div class="form-group">
 				<input placeholder="  Num of Invitees" type="text" name="invitee">
             </div>
 			<div class="form-group">
 				<select name='Event' class="form-control custom-select">
 					<option value="" disabled selected>Event</option>
-					<option value="wedding">Wedding</option>
-					<option value="birthday">Birthday Celebration</option>
-					<option value="party">Party</option>
+					<%if (locals.Event) {%>
+						<%Event.forEach(function(m) {%>
+							<%for (var key in m) {%>
+								<option value="<%= m[key] %>"><%= m[key] %></option>
+							<%}%>
+						<%});%>
+					<%}%>
 				</select>
-			</div>
+            </div>
 			<div class="form-group">
 				<select name='Venue' class="form-control custom-select">
 					<option value="" disabled selected>Venue</option>
-					<option value="waterloo">Waterloo</option>
-					<option value="toronto">Toronto</option>
-					<option value="china">China</option>
+					<%if (locals.Venue) {%>
+						<%Venue.forEach(function(m) {%>
+							<%for (var key in m) {%>
+								<option value="<%= m[key] %>"><%= m[key] %></option>
+							<%}%>
+						<%});%>
+					<%}%>
 				</select>
 			</div>
-			<div class="form-group">
-				<select name='Menu' class="form-control custom-select">
+			<div class="form-group row justify-content-md-center" id="menu_div">
+				<select name='Menu' class="form-control col col-md-4" id="Menu">
 					<option value="" disabled selected>Menu</option>
-					<option value="hamburger">Hamburger</option>
-					<option value="wine">Wine</option>
-					<option value="rice">Rice</option>
+					<%if (locals.Menu) {%>
+						<%Menu.forEach(function(m) {%>
+							<%for (var key in m) {%>
+								<option value="<%= m[key] %>"><%= m[key] %></option>
+							<%}%>
+						<%});%>
+					<%}%>
 				</select>
-			</div>
-			<div class="form-group" id="MenuQuantity">
-				<input placeholder="  Menu Quantity" type="text" name="MenuQuantity">
-			</div>
-			<div class="form-group">
-				<select name='FW' class="form-control custom-select">
+				<input id="MenuQuantity" class="col col-md-4" placeholder="  Menu Quantity" type="text" name="MenuQuantity">
+            </div>
+			<div class="form-group row justify-content-md-center" id="flower_div">
+				<select name='FW' class="form-control col col-md-4" id="flower">
 					<option value="" disabled selected>Flower/Decor</option>
-					<option value="rose">Rose</option>
-					<option value="tulip">Tulip</option>
-					<option value="morning glory">Morning Glory</option>
+					<%if (locals.Flower) {%>
+						<%Flower.forEach(function(m) {%>
+							<%for (var key in m) {%>
+								<option value="<%= m[key] %>"><%= m[key] %></option>
+							<%}%>
+						<%});%>
+					<%}%>
 				</select>
-			</div>
-			<div class="form-group" id="FWQuantity">
-				<input placeholder="  Flower Quantity" type="text" name="FWQuantity">
-			</div>
+				<input id="FWQuantity" class="col col-md-4" placeholder="  Flower Quantity" type="text" name="FWQuantity">
+            </div>
 			<div class="form-group">
 				<select name='ME' class="form-control custom-select">
 					<option value="" disabled selected>Music/Entertainment</option>
-					<option value="guitar">Guitar</option>
-					<option value="violin">Violin</option>
-					<option value="piano">Piano</option>
+					<%if (locals.Music) {%>
+						<%Music.forEach(function(m) {%>
+							<%for (var key in m) {%>
+								<option value="<%= m[key] %>"><%= m[key] %></option>
+							<%}%>
+						<%});%>
+					<%}%>
 				</select>
 			</div>
 			<div class="form-group">
-				<button class="btn btn-primary btn-lg">Submit</button>
+				<button class="btn btn-primary btn-lg">Insert</button>
 			</div>
 		</form>
 	</div>
