@@ -148,4 +148,19 @@ router.post("/query_order", function (req, res) {
     });
 });
 
+router.delete("/delete_order/:id", function (req, res) {
+    var orderID = req.params.id;
+    var sql = 'delete from ORDER_INFO where ORDER_INFO_ID = ?';
+
+    connection.query(sql, [orderID], function (err, rows, fields) {
+        if (err) throw err;
+        if (rows.length == 0) {
+            req.flash("error", "Delete Failed");
+        } else {
+            req.flash("success", "Successfully Deleted!");
+        }
+        res.redirect('/home');
+    });
+});
+
 module.exports = router;
