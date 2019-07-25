@@ -17,6 +17,7 @@ var update_client = require("./routes/update_client"),
     update_order = require("./routes/update_order"),
     query_client = require("./routes/query_client"),
     query_order = require("./routes/query_order");
+    query_menu_item = require("./routes/query_menu_item");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -43,6 +44,7 @@ app.use(update_client);
 app.use(new_client);
 app.use(new_order);
 app.use(update_order);
+app.use(query_menu_item);
 
 
 app.listen(process.env.PORT, process.env.IP, function() {
