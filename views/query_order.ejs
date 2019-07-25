@@ -35,6 +35,14 @@
 					<option value="less">Less Than</option>
 				</select>
 				<input class="form-control col col-md-4" placeholder="  Num of Invitees" type="text" name="invitee">
+			</div>
+			<div class="form-group row justify-content-md-center">
+				<select class="form-control col col-md-4" name="priceCompare">
+					<option disabled selected>Choose The Range OF</option>
+					<option value="large">Large Than</option>
+					<option value="less">Less Than</option>
+				</select>
+				<input class="form-control col col-md-4" placeholder="  Total Price" type="text" name="price">
             </div>
 			<div class="form-group">
 				<select name='Event' class="form-control custom-select">
@@ -141,7 +149,11 @@
                                 <td>
                                     <%=order[key]%>
                                 </td>
-                            <%}%>
+							<%}%>
+							<td>
+								<form action="/delete_order/<%= order[ORDER_INFO_ID] %>?_method=PUT" method="POST">
+								</form>
+							</td>
                         </tr>
                     <%});%>
                 <%}%>

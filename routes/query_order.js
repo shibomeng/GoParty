@@ -31,7 +31,9 @@ router.post("/query_order", function (req, res) {
     var clientID = (req.body.ClientID ? req.body.ClientID : null);  
     var orderID = (req.body.OrderID ? req.body.OrderID : null);
     var invitee = (parseInt(req.body.invitee) ? parseInt(req.body.invitee) : null);
+    var price = (parseFloat(req.body.price) ? parseFloat(req.body.price) : null);
     var comparsion = req.body.comparsion;
+    var priceCompare = req.body.priceCompare;
     var MenuComparsion = req.body.MenuComparsion;
     var FWcomparsion = req.body.FWcomparsion;
     var event = (req.body.Event ? req.body.Event : null);
@@ -101,6 +103,21 @@ router.post("/query_order", function (req, res) {
     if (flower_quantity) {
         sql = sql.concat(appendFW);
         input.push(flower_quantity);
+    }
+
+    var appendPrice;
+    if (priceCompare) {
+        if (priceCompare === "less") {
+            appendPrice = "and (Total_Price < ?)";
+        } else {
+            appendPrice = "and (Total_Price > ?)";
+        }
+    } else {
+        appendPrice = "and (Total_Price = ?)";
+    }
+    if (price) {
+        sql = sql.concat(appendPrice);
+        input.push(price);
     }
 
     connection.query(sql, input, 
