@@ -26,12 +26,18 @@
 <div class="container" id="data">
     <table class="table">
         <thead>
-            <tr>
-                <th scope="col">Client ID</th>
-                <th scope="col">Budget</th>
-                <th scope="col">Phone Number</th>
-                <th scope="col">Address</th>
-            </tr>
+            <!-- <tr> -->
+                 <%if (locals.info) {%>
+                    <%[info[0]].forEach(function(m) {%>
+                        <tr>
+                            <%for (var key in m) {%>
+                                <td>
+                                    <%=key%>
+                                </td>
+                            <%}%>
+                        </tr>
+                    <%});%>
+                <%}%>
         </thead>
         <tbody>
                 <%if (locals.info) {%>

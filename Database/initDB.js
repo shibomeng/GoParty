@@ -186,9 +186,9 @@ function init() {
     });
 
     var SUPPLY_MENU = `create Table if not exists SUPPLY_MENU(
-        Supply_Menu_Name char(10) primary key,
+        Name char(10) primary key,
         Supplier_Name varchar(10) not null,
-        foreign key (Supply_Menu_Name) references MENU_ITEM(Name),
+        foreign key (Name) references MENU_ITEM(Name),
         foreign key(Supplier_Name) references SUPPLIER(Supplier_Name) ON UPDATE CASCADE ON DELETE CASCADE
         )`;
 
@@ -197,10 +197,10 @@ function init() {
     });
 
     var SUPPLY_DECOR = `create Table if not exists SUPPLY_DECOR(
-        Supply_Decor_Name char(10) primary key,
+        Name char(10) primary key,
         Supplier_Name varchar(10) not null,
         foreign key(Supplier_Name) references SUPPLIER(Supplier_Name) ON UPDATE CASCADE ON DELETE CASCADE,
-        foreign key(Supply_Decor_Name) references DECOR_ITEM(Name) 
+        foreign key(Name) references DECOR_ITEM(Name) 
         )`;
 
     connection.query(SUPPLY_DECOR, function(err, results, fields) {
@@ -208,10 +208,10 @@ function init() {
     });
 
     var SUPPLY_ENTERTAINMENT = `create Table if not exists SUPPLY_ENTERTAINMENT(
-        Supply_Entertainment_Name char(10) primary key,
+        Name char(10) primary key,
         Supplier_Name varchar(10) not null,
         foreign key(Supplier_Name) references SUPPLIER(Supplier_Name) ON UPDATE CASCADE ON DELETE CASCADE,
-        foreign key(Supply_Entertainment_Name) references ENTERTAINMENT_ITEM(Name)
+        foreign key(Name) references ENTERTAINMENT_ITEM(Name)
         )`;
 
     connection.query(SUPPLY_ENTERTAINMENT, function(err, results, fields) {

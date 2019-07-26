@@ -23,9 +23,9 @@ router.get("/query_menu_item", function (req, res) {
 
 router.post("/query_menu_item", function (req, res) {
     var name = req.body.Name;
-    var sql = "SELECT * FROM MENU_ITEM \
+    var sql = "SELECT * FROM  SUPPLIER\
                 natural join SUPPLY_MENU \
-                natural join SUPPLIER \
+                natural join MENU_ITEM \
                 where Name = ? "
 
     connection.query(sql, [name], function (err, info){
