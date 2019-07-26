@@ -19,6 +19,7 @@ var update_client = require("./routes/update_client"),
     query_order = require("./routes/query_order"),
     query_menu_item = require("./routes/query_menu_item"),
     query_supplier = require("./routes/query_supplier");
+    compare_price = require("./routes/compare_price");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -47,6 +48,7 @@ app.use(new_order);
 app.use(update_order);
 app.use(query_menu_item);
 app.use(query_supplier);
+app.use(compare_price);
 
 
 app.listen(process.env.PORT, process.env.IP, function() {
