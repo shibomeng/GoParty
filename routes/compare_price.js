@@ -21,6 +21,30 @@ router.post("/compare_price", function (req, res) {
             if (err) throw err;
             res.render('compare_price', {result : result});
         });
+    } else if (select == "Flower") {
+        title = "Flower/Deoce_Total_Price";
+        var sql = " SELECT * FROM ORDER_INFO natural join \
+                    (SELECT ORDER_INFO_ID, sum(Total_Price) AS ? FROM \
+                    (Select *, (Price* Decor_Quantity) as Total_Price FROM CONSIST_DECOR natural join DECOR_ITEM WHERE CONSIST_DECOR.DECOR_NAME = DECOR_ITEM.NAME) AS NEW \
+                    group by ORDER_INFO_ID \
+                    having sum(Total_Price) > ? ) AS B";
+        connection.query(sql, [title, price], function (err, result) {
+            if (err) throw err;
+            res.render('compare_price', { result: result });
+        });
+    } else if (select == "Entertainment") {
+        title = "Entertainment_Total_Price";
+        var sql = " SELECT * FROM ORDER_INFO natural join \
+                    (SELECT ORDER_INFO_ID, sum(Total_Price) AS ? FROM \
+                    (Select *, Price as Total_Price FROM CONSIST_ENTERTAINMENT natural join ENTERTAINMENT_ITEM WHERE CONSIST_ENTERTAINMENT.ENTERTAINMENT_NAME = ENTERTAINMENT_ITEM.NAME) AS NEW \
+                    group by ORDER_INFO_ID \
+                    having sum(Total_Price) > ? ) AS B";       
+        connection.query(sql, [title, price], function (err, result) {
+            if (err) throw err;
+            res.render('compare_price', { result: result });
+        });
+    } else {
+        res.render('compare_price');
     }
 });
 
