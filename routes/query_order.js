@@ -3,27 +3,23 @@ var router = express.Router();
 var connection = require('../Database/DB_Connection.js');
 
 router.get("/query_order", function(req, res) {
-   var clientID;
-   var orderID;
-   connection.query("SELECT ORDER_INFO_ID FROM ORDER_INFO", function (err, result) {
+   connection.query("SELECT ORDER_INFO_ID FROM ORDER_INFO", function (err, orderID) {
        if (err) throw err;
-       orderID = result;
-   })
-   connection.query("SELECT Client_ID FROM CLIENT", function (err, result) {
-      if (err) throw err;
-      clientID = result;
-   });
-   connection.query("SELECT Event_Type FROM EVENT", function(err, Event){
-      if (err) throw err;
-      connection.query("SELECT Location FROM VENUE", function(err, Venue){
-         if (err) throw err;
-         connection.query("SELECT Name FROM MENU_ITEM", function(err, Menu){
+       connection.query("SELECT Client_ID FROM CLIENT", function (err, clientID) {
             if (err) throw err;
-            connection.query("SELECT Name FROM DECOR_ITEM", function (err, Flower){
-               if (err) throw err;
-               connection.query("SELECT Name FROM ENTERTAINMENT_ITEM", function (err, Music){
-                  if (err) throw err;
-                  res.render("query_order", {orderID : orderID, clientID: clientID, Event : Event, Venue:Venue, Menu:Menu, Flower:Flower, Music:Music});});});});});});
+            connection.query("SELECT Event_Type FROM EVENT", function(err, Event){
+                if (err) throw err;
+                connection.query("SELECT Location FROM VENUE", function(err, Venue){
+                    if (err) throw err;
+                    connection.query("SELECT Name FROM MENU_ITEM", function(err, Menu){
+                        if (err) throw err;
+                        connection.query("SELECT Name FROM DECOR_ITEM", function (err, Flower){
+                            if (err) throw err;
+                            connection.query("SELECT Name FROM ENTERTAINMENT_ITEM", function (err, Music){
+                                if (err) throw err;
+                                res.render("query_order", {orderID : orderID, clientID: clientID, Event : Event, Venue:Venue, Menu:Menu, Flower:Flower, Music:Music});});});});});});
+        });
+   });
 });
 
 
@@ -129,22 +125,38 @@ router.post("/query_order", function (req, res) {
             req.flash("success", "Check Result Below");
         }
 
-        var clientID;
-        connection.query("SELECT Client_ID FROM CLIENT", function (err, result) {
+        connection.query("SELECT ORDER_INFO_ID FROM ORDER_INFO", function (err, orderID) {
             if (err) throw err;
-            clientID = result;
-        });
-        connection.query("SELECT Event_Type FROM EVENT", function(err, Event){
-            if (err) throw err;
-            connection.query("SELECT Location FROM VENUE", function(err, Venue){
+            connection.query("SELECT Client_ID FROM CLIENT", function (err, clientID) {
                 if (err) throw err;
-                connection.query("SELECT Name FROM MENU_ITEM", function(err, Menu){
+                connection.query("SELECT Event_Type FROM EVENT", function(err, Event){
                     if (err) throw err;
-                    connection.query("SELECT Name FROM DECOR_ITEM", function (err, Flower){
-                    if (err) throw err;
-                    connection.query("SELECT Name FROM ENTERTAINMENT_ITEM", function (err, Music){
+                    connection.query("SELECT Location FROM VENUE", function(err, Venue){
                         if (err) throw err;
-                        res.render("query_order", {clientID:clientID, Event:Event, Venue:Venue, Menu:Menu, Flower:Flower, Music:Music, rows:rows});});});});});});
+                        connection.query("SELECT Name FROM MENU_ITEM", function(err, Menu){
+                            if (err) throw err;
+                            connection.query("SELECT Name FROM DECOR_ITEM", function (err, Flower){
+                                if (err) throw err;
+                                connection.query("SELECT Name FROM ENTERTAINMENT_ITEM", function (err, Music){
+                                    if (err) throw err;
+                                    res.render("query_order", {orderID : orderID, clientID: clientID, Event : Event, Venue:Venue, Menu:Menu, Flower:Flower, Music:Music, rows:rows});});});});});});
+            });
+        });
+    });
+});
+
+router.delete("/delete_order/:id", function (req, res) {
+    var orderID = req.params.id;
+    var sql = 'delete from ORDER_INFO where ORDER_INFO_ID = ?';
+
+    connection.query(sql, [orderID], function (err, rows, fields) {
+        if (err) throw err;
+        if (rows.length == 0) {
+            req.flash("error", "Delete Failed");
+        } else {
+            req.flash("success", "Successfully Deleted!");
+        }
+        res.redirect('/home');
     });
 });
 

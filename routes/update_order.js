@@ -3,27 +3,23 @@ var router = express.Router();
 var connection = require('../Database/DB_Connection.js');
 
 router.get("/update_order", function(req, res) {
-   var clientID;
-   var orderID;
-   connection.query("SELECT ORDER_INFO_ID FROM ORDER_INFO", function (err, result) {
-       if (err) throw err;
-       orderID = result;
-   })
-   connection.query("SELECT Client_ID FROM CLIENT", function (err, result) {
+   connection.query("SELECT ORDER_INFO_ID FROM ORDER_INFO", function (err, orderID) {
       if (err) throw err;
-      clientID = result;
-   });
-   connection.query("SELECT Event_Type FROM EVENT", function(err, Event){
-      if (err) throw err;
-      connection.query("SELECT Location FROM VENUE", function(err, Venue){
+      connection.query("SELECT Client_ID FROM CLIENT", function (err, clientID) {
          if (err) throw err;
-         connection.query("SELECT Name FROM MENU_ITEM", function(err, Menu){
+         connection.query("SELECT Event_Type FROM EVENT", function(err, Event){
             if (err) throw err;
-            connection.query("SELECT Name FROM DECOR_ITEM", function (err, Flower){
+            connection.query("SELECT Location FROM VENUE", function(err, Venue){
                if (err) throw err;
-               connection.query("SELECT Name FROM ENTERTAINMENT_ITEM", function (err, Music){
+               connection.query("SELECT Name FROM MENU_ITEM", function(err, Menu){
                   if (err) throw err;
-                  res.render("update_order", {orderID : orderID, clientID: clientID, Event : Event, Venue:Venue, Menu:Menu, Flower:Flower, Music:Music});});});});});});
+                  connection.query("SELECT Name FROM DECOR_ITEM", function (err, Flower){
+                     if (err) throw err;
+                     connection.query("SELECT Name FROM ENTERTAINMENT_ITEM", function (err, Music){
+                        if (err) throw err;
+                        res.render("update_order", {orderID : orderID, clientID: clientID, Event : Event, Venue:Venue, Menu:Menu, Flower:Flower, Music:Music});});});});});});
+      });
+   });
 });
 
 router.post("/update_order", function(req, res) {
