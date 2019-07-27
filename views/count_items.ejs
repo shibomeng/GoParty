@@ -6,7 +6,7 @@
         <form action="/count_items" method="POST">
             <div class="form-group" id="Name">
 				<select name='OrderID' class="form-control custom-select">
-					<option disabled selected>By Supplier Name</option>
+					<option disabled selected>By Order ID</option>
 					<%if (locals.orderID) {%>
 						<%orderID.forEach(function(m) {%>
 							<%for (var key in m) {%>
