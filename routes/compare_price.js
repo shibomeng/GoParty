@@ -8,7 +8,7 @@ router.get("/compare_price", function (req, res) {
 
 router.post("/compare_price", function (req, res) {
     var select = req.body.Select;
-    var price = parseInt(req.body.Price);
+    var price = (parseInt(req.body.Price) ? parseInt(req.body.Price) : 0 );
     var title;
     if (select == "Menu") {
         title = "Menu_Total_Price";
