@@ -13,6 +13,20 @@
 								<option value="<%= m[key] %>"><%= m[key] %></option>
 							<%}%>
 						<%});%>
+                    <%}%>
+                    <%if (locals.decor) {%>
+						<%decor.forEach(function(m) {%>
+							<%for (var key in m) {%>
+								<option value="<%= m[key] %>"><%= m[key] %></option>
+							<%}%>
+						<%});%>
+                    <%}%>
+                    <%if (locals.entertainment) {%>
+						<%entertainment.forEach(function(m) {%>
+							<%for (var key in m) {%>
+								<option value="<%= m[key] %>"><%= m[key] %></option>
+							<%}%>
+						<%});%>
 					<%}%>
 				</select>
             </div>
