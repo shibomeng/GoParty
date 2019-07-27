@@ -5,7 +5,7 @@
 		<h1 style="color: white;">Update Order</h1>
           <form action="/update_order" method="POST">
             <div class="form-group" id="OrderID">
-				<select name='OrderID' class="form-control custom-select">
+				<select name='OrderID' class="form-control custom-select" required>
 					<option value="" disabled selected>Order ID</option>
 					<%if (locals.orderID) {%>
 						<%orderID.forEach(function(m) {%>
