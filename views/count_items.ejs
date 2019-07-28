@@ -5,7 +5,7 @@
         <h1 style="color: white;">Count Items In Order</h1>
         <form action="/count_items" method="POST">
             <div class="form-group" id="Name">
-				<select name='OrderID' class="form-control custom-select">
+				<select name='OrderID' class="form-control custom-select" required> 
 					<option value = "" disabled selected>By Order ID</option>
 					<%if (locals.orderID) {%>
 						<%orderID.forEach(function(m) {%>
@@ -17,7 +17,7 @@
 				</select>
             </div>
             <div class="form-group" id="Name">
-				<select name='Select' class="form-control custom-select">
+				<select name='Select' class="form-control custom-select" required>
 					<option value = "" disabled selected>By Goods</option>
                     <option value = "Menu">Menu</option>
                     <option value = "Flower">Flower/Decor</option>

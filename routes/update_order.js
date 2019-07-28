@@ -112,9 +112,11 @@ router.post("/update_order", function(req, res) {
             } 
          });
       });
-
-      req.flash("success", "Successfully Updated Order Information!");
-      res.redirect("/home");
+      connection.query("SELECT * FROM ORDER_INFO WHERE ORDER_INFO_ID = ?", [orderID], function(err,result){
+         if (err) throw err;
+         var success = "Check Result Below";
+         res.render("update_order", {result:result, success: success});
+      });
       });
 });
 
