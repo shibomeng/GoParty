@@ -2,6 +2,9 @@ var express = require("express");
 var router = express.Router();
 var connection = require('../Database/DB_Connection.js');
 
+var error = "No Result Found";
+var success = "Check Result Below";
+
 router.get("/compare_price", function (req, res) {
     res.render('compare_price');
 });
@@ -18,8 +21,8 @@ router.post("/compare_price", function (req, res) {
                     group by ORDER_INFO_ID \
                     having sum(Total_Price) > ? ) AS B";
         connection.query(sql, [title, price],function(err, result){
-            if (err) throw err;
-            res.render('compare_price', {result : result});
+            if (err) res.render('compare_price', {error:error});
+            res.render('compare_price', {result : result, success: success});
         });
     } else if (select == "Flower") {
         title = "Flower/Deoce_Total_Price";
@@ -29,8 +32,8 @@ router.post("/compare_price", function (req, res) {
                     group by ORDER_INFO_ID \
                     having sum(Total_Price) > ? ) AS B";
         connection.query(sql, [title, price], function (err, result) {
-            if (err) throw err;
-            res.render('compare_price', { result: result });
+            if (err) res.render('compare_price', { error: error });
+            res.render('compare_price', { result: result, success: success });
         });
     } else if (select == "Entertainment") {
         title = "Entertainment_Total_Price";
@@ -40,8 +43,8 @@ router.post("/compare_price", function (req, res) {
                     group by ORDER_INFO_ID \
                     having sum(Total_Price) > ? ) AS B";       
         connection.query(sql, [title, price], function (err, result) {
-            if (err) throw err;
-            res.render('compare_price', { result: result });
+            if (err) res.render('compare_price', { error: error });
+            res.render('compare_price', { result: result, success: success });
         });
     } else {
         res.render('compare_price');

@@ -2,6 +2,9 @@ var express = require("express");
 var router = express.Router();
 var connection = require('../Database/DB_Connection.js');
 
+var error = "No Result Found";
+var success = "Check Result Below";
+
 router.get("/count_items", function (req, res) {
     connection.query("SELECT ORDER_INFO_ID FROM ORDER_INFO", function (err, orderID) {
         if (err) throw err;
@@ -27,7 +30,7 @@ router.post("/count_items", function (req, res) {
                     req.flash("error", err.sqlMessage);
                     res.redirect("/home");
                 }
-                res.render('count_items', {result: result, orderID: orderID });
+                res.render('count_items', {result: result, orderID: orderID, success:success});
             });
         });
     } else if (select == "Flower") {
@@ -39,7 +42,7 @@ router.post("/count_items", function (req, res) {
             if (err) throw err;
             connection.query("SELECT ORDER_INFO_ID FROM ORDER_INFO", function (err, orderID) {
                 if (err) throw err;
-                res.render('count_items', { result: result, orderID: orderID });
+                res.render('count_items', { result: result, orderID: orderID, success: success });
             });
         });
     } else if (select == "Entertainment") {
@@ -51,7 +54,7 @@ router.post("/count_items", function (req, res) {
             if (err) throw err;
             connection.query("SELECT ORDER_INFO_ID FROM ORDER_INFO", function (err, orderID) {
                 if (err) throw err;
-                res.render('count_items', { result: result, orderID: orderID });
+                res.render('count_items', { result: result, orderID: orderID, success: success });
             });
         });
     } else {
