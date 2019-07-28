@@ -18,9 +18,15 @@ router.post("/count_items", function (req, res) {
                     where ORDER_INFO_ID = ?"
 
         connection.query(sql, [OrderID], function(err, result) {
-            if (err) throw err;
+            if (err) {
+                req.flash("error", err.sqlMessage);
+                res.redirect("/home");
+            }
             connection.query("SELECT ORDER_INFO_ID FROM ORDER_INFO", function (err, orderID) {
-                if (err) throw err;
+                if (err) {
+                    req.flash("error", err.sqlMessage);
+                    res.redirect("/home");
+                }
                 res.render('count_items', {result: result, orderID: orderID });
             });
         });

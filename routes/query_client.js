@@ -45,15 +45,19 @@ router.post("/query_client", function (req, res) {
 
     connection.query(sql, [clientID, clientID, phone, phone, budget], function (err, rows, fields) {
         if (err) throw err;
+        var error = "No Result Found";
+        var success = "Check Result Below";
         if (rows.length == 0) {
-            req.flash("error", "No Result Found");
+            connection.query("SELECT Client_ID FROM CLIENT", function (err, result) {
+                if (err) throw err;
+                res.render("query_client", { rows: rows, clientID: result, error:error});
+            });
         } else {
-            req.flash("success", "Check Result Below");
+            connection.query("SELECT Client_ID FROM CLIENT", function (err, result) {
+                if (err) throw err;
+                res.render("query_client", { rows: rows, clientID: result, success:success});
+            });
         }
-        connection.query("SELECT Client_ID FROM CLIENT", function (err, result) {
-            if (err) throw err;
-            res.render("query_client", { rows: rows, clientID: result});
-        });
     });
 });
 

@@ -44,7 +44,7 @@ router.post("/update_order", function(req, res) {
       connection.query(sql, input, function (err, rows, fields) {
          if (err) throw err;
          if (rows.length == 0) {
-            req.flash("error", "Failed to update!");
+            req.flash("error", err.sqlMessage);
             res.redirect("/home");
          } 
       });
@@ -65,7 +65,7 @@ router.post("/update_order", function(req, res) {
          connection.query(sql, input, function (err, rows, fields) {
             if (err) throw err;
             if (rows.length == 0) {
-               req.flash("error", "Failed to update!");
+               req.flash("error", err.sqlMessage);
                res.redirect("/home");
             } 
          });
@@ -87,7 +87,7 @@ router.post("/update_order", function(req, res) {
          connection.query(sql, input, function (err, rows, fields) {
             if (err) throw err;
             if (rows.length == 0) {
-               req.flash("error", "Failed to update!");
+               req.flash("error", err.sqlMessage);
                res.redirect("/home");
             } 
          });
@@ -107,7 +107,7 @@ router.post("/update_order", function(req, res) {
          connection.query(sql, input, function (err, rows, fields) {
             if (err) throw err;
             if (rows.length == 0) {
-               req.flash("error", "Failed to update!");
+               req.flash("error", err.sqlMessage);
                res.redirect("/home");
             } 
          });

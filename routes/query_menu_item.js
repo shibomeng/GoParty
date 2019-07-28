@@ -108,8 +108,9 @@ router.post("/query_menu_item", function (req, res) {
                 connection.query("SELECT NAME FROM ENTERTAINMENT_ITEM", function (err, result) {
                     if (err) throw err;
                     entertainment = result;
-                    // delete info[0].Name;
-                    res.render("query_menu_item", { info: info, menu: menu, decor: decor, entertainment: entertainment })
+                    delete info[0].Name;
+                    var success = "Check Result Below!";
+                    res.render("query_menu_item", { info: info, menu: menu, decor: decor, entertainment: entertainment, success:success })
                 });
             })
         })

@@ -15,29 +15,35 @@ router.post("/update_client", function(req, res) {
    if (budget) {
       var sql = "UPDATE CLIENT SET Budget = ? WHERE CLIENT_ID = ?" ;
       connection.query(sql, [budget, clientId], function (err, result) {
-         if (err) throw err;
-         console.log("Update Budget of client!");
+         if (err) {
+            req.flash("error", err.sqlMessage);
+            res.redirect("/home");
+         }
       });
    }
    
    if (phone) {
       var sql = "UPDATE CLIENT SET Phone_Num = ? WHERE CLIENT_ID = ?";
       connection.query(sql, [phone, clientId], function (err, result) {
-         if (err) throw err;
-         console.log("Update phone num of client!");
+         if (err) {
+            req.flash("error", err.sqlMessage);
+            res.redirect("/home");
+         }
       });
    }
 
    if (address) {
       var sql = "UPDATE CLIENT SET Address = ? WHERE CLIENT_ID = ?";
       connection.query(sql, [address, clientId], function (err, result) {
-         if (err) throw err;
-         console.log("Update address of client!");
+         if (err) {
+            req.flash("error", err.sqlMessage);
+            res.redirect("/home");
+         }
       });
    }
 
    req.flash("success", "Successfully update client!");
-   res.redirect("/");
+   res.redirect("/home");
 
 });
 

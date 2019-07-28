@@ -57,10 +57,16 @@ router.post("/new_order", function(req, res) {
       var menu = req.body.Menu;
       var quantity = req.body.MenuQuantity;
       connection.query("SELECT Name, Price FROM MENU_ITEM WHERE Name = ?", [menu], function(err, result){
-         if (err) throw err;
+         if (err) {
+            req.flash("error", err.sqlMessage);
+            res.redirect("/home");
+         }
          connection.query("INSERT INTO CONSIST_MENU (Menu_Name, ORDER_INFO_ID,Client_ID,Menu_Quantity) VALUES (?,?,?,?)", [result[0].Name, orderID, clientID, quantity],
             function (err, result) {
-               if (err) throw err;
+               if (err) {
+                  req.flash("error", err.sqlMessage);
+                  res.redirect("/home");
+               }
          });
          total += parseInt(quantity) * parseInt(result[0].Price);
       });
@@ -69,10 +75,16 @@ router.post("/new_order", function(req, res) {
       var decor = req.body.FW;
       quantity = req.body.FWQuantity;
       connection.query("SELECT Name, Price FROM DECOR_ITEM WHERE Name = ?", [decor], function (err, result) {
-         if (err) throw err;
+         if (err) {
+            req.flash("error", err.sqlMessage);
+            res.redirect("/home");
+         }
          connection.query("INSERT INTO CONSIST_DECOR (Decor_Name, ORDER_INFO_ID,Client_ID,Decor_Quantity) VALUES (?,?,?,?)", [result[0].Name, orderID, clientID, quantity],
             function (err, result) {
-               if (err) throw err;
+               if (err) {
+                  req.flash("error", err.sqlMessage);
+                  res.redirect("/home");
+               }
          });
          total += parseInt(quantity) * parseInt(result[0].Price);
       });
@@ -80,18 +92,25 @@ router.post("/new_order", function(req, res) {
 
       var entertainment = req.body.ME;
       connection.query("SELECT Name, Price FROM ENTERTAINMENT_ITEM WHERE Name = ?", [entertainment], function (err, result) {
-         if (err) throw err;
+         if (err) {
+            req.flash("error", err.sqlMessage);
+            res.redirect("/home");
+         }
          connection.query("INSERT INTO CONSIST_ENTERTAINMENT (Entertainment_Name, ORDER_INFO_ID,Client_ID) VALUES (?,?,?)", [result[0].Name, orderID, clientID],
             function (err, result) {
-               if (err) throw err;
+               if (err) {
+                  req.flash("error", err.sqlMessage);
+                  res.redirect("/home");
+               }
          });
          total += parseInt(result[0].Price);
          connection.query("UPDATE ORDER_INFO SET Total_Price = ? WHERE ORDER_INFO_ID = ?", [total, orderID], function (err, result) {
-            if (err) throw err;
+            if (err) {
+               req.flash("error", err.sqlMessage);
+               res.redirect("/home");
+            }
          });
       });
-
-
       req.flash("success", "Successfully Added New Order!");
       res.redirect("/home");
    });
